@@ -1,0 +1,13 @@
+# Runtime dependencies for the publication path and generic API.
+numpy>=1.23
+pandas>=1.4
+scikit-learn>=1.1
+matplotlib>=3.5
+pyyaml>=6.0
+tqdm>=4.64
+nibabel>=4.0
+monai>=1.2
+torch>=1.12
+torchvision>=0.13
+# Demo notebook
+jupyter>=1.0

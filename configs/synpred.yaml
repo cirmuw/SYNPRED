@@ -1,0 +1,38 @@
+# SYNPRED on BreastDCEDL / I-SPY2 (paper settings).
+# Used by scripts/pretrain.py, scripts/evaluate.py and scripts/finetune.py.
+# Paths can be overridden on the command line (--data-path, --rna-data-path, --output-dir).
+
+device: cuda
+output_dir: results/synpred
+
+data:
+  data_path: /path/to/BC_pcr_ds          # train.pkl / val.pkl / test.pkl
+  rna_data_path: /path/to/GSE194040_ISPY2ResID_AgilentGeneExp_990_FrshFrzn_meanCol_geneLevel_n988.txt
+  batch_size: 16
+  drop_last_eval: false                  # true = drop the last partial val/test batch, as in the paper runs
+
+model:
+  z_dim: 256                             # 16 uni + 16 fusion + 224 inst
+  z_cls_dim: 16
+  latents: all                           # all | style_cls | mm_cls | style_mm | none (Table 2 variants)
+  hidden_dim_rna: 512
+  skip4_dropout_p: 0.9
+
+pretrain:
+  seeds: [42, 43, 44, 45, 46]            # one independent run per seed -> seed_<seed>/; [42] = a single run
+  epochs: 300
+  img_lr: 1.0e-5
+  rna_lr: 1.0e-6
+  beta: 1.0e-4
+  min_selection_epoch: 50                # select by val AUROC (multimodal linear probe) after this epoch
+
+finetune:
+  seed: 42                               # the paper used 42 for every backbone
+  backbone: best_auc                     # best_auc (model_best_auc.pt, selected by val AUROC) | last (final epoch)
+  epochs: 50
+  lr: 1.0e-4
+  head_hidden_dim: 32
+  freeze_backbone: true
+  train_on_mm_features: true             # heads for img/rna are trained on multimodal embeddings
+  mm_paired_only: true                   # multimodal metrics on patients with both modalities
+  modes: [mm, img, rna]
