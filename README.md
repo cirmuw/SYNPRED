@@ -26,24 +26,26 @@ pip install -r requirements.txt
 
 ## Data layout
 
-`data_path` must contain the official BreastDCEDL train/validation/test split:
+The official BreastDCEDL train/validation/test split is in [splits/](splits/)
+(`train.pkl`, `val.pkl`, `test.pkl`). `data_path` is the folder with the images:
 
 ```text
 BC_pcr_ds/
-├── train.pkl
-├── val.pkl
-└── test.pkl
+└── DCE_MIP/
+    ├── ISPY1_1001_spy1_vis1_dce_aqc_1.nii.gz
+    └── ...
 ```
 
 Each pickle maps a patient ID (string) to its pCR label and the two T0
-maximum-intensity projections (early and late subtraction, 2D NIfTI):
+maximum-intensity projections (early and late subtraction, 2D NIfTI). Image paths
+are relative to `data_path` (absolute paths also work):
 
 ```python
 {
     "756412": {
         "pcr": 0,
-        "T0_early": "/data/756412/T0_early_mip.nii.gz",
-        "T0_late": "/data/756412/T0_late_mip.nii.gz",
+        "T0_early": "DCE_MIP/ISPY2-756412_spy2_vis1_dce_aqc_2.nii.gz",
+        "T0_late": "DCE_MIP/ISPY2-756412_spy2_vis1_dce_aqc_5.nii.gz",
     },
 }
 ```
@@ -56,8 +58,12 @@ z-scoring are applied. Patients without RNA (e.g. the I-SPY1 and Duke cohorts) a
 the image branch and marked `rna_missing=True`. Each script prints how many patients
 per split have RNA. If that number is 0, the patient IDs do not match.
 
-All settings are in [configs/synpred.yaml](configs/synpred.yaml). Set the two data
-paths there, or pass `--data-path` and `--rna-data-path` to any script.
+Download the RNA file into `rna/` and the released checkpoints into
+`pretrained_checkpoints/` (one folder per repetition, `rep_0` ... `rep_4`, each with
+`model_best_auc.pt` and `model.pt`) from Hugging Face. Both folders are git-ignored.
+
+All settings are in [configs/synpred.yaml](configs/synpred.yaml). The RNA path defaults to
+`rna/`. Set the image data path there, or pass `--data-path`, `--splits-path` and `--rna-data-path` to any script.
 
 ## Reproducing one run
 

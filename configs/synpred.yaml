@@ -6,8 +6,9 @@ device: cuda
 output_dir: results/synpred
 
 data:
-  data_path: /path/to/BC_pcr_ds          # train.pkl / val.pkl / test.pkl
-  rna_data_path: /path/to/GSE194040_ISPY2ResID_AgilentGeneExp_990_FrshFrzn_meanCol_geneLevel_n988.txt
+  data_path: /path/to/BC_pcr_ds          # image root; split paths (DCE_MIP/...) are relative to it
+  splits_path: splits                    # train.pkl / val.pkl / test.pkl
+  rna_data_path: rna/GSE194040_ISPY2ResID_AgilentGeneExp_990_FrshFrzn_meanCol_geneLevel_n988.txt
   batch_size: 16
   drop_last_eval: false                  # true = drop the last partial val/test batch, as in the paper runs
 

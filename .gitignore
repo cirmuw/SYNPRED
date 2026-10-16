@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.conda/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Experiment outputs (configs/synpred.yaml writes to results/)
+results/
+runs/
+wandb/
+lightning_logs/
+*.log
+
+# Released checkpoints and RNA data (hosted on Hugging Face)
+pretrained_checkpoints/
+rna/
+
+# Model checkpoints
+*.pt
+*.pth
+*.ckpt
+
+# Data (datasets live outside the repo; see configs/synpred.yaml)
+*.pkl
+!splits/*.pkl
+*.nii
+*.nii.gz
+*.npy
+*.npz
+
+# macOS
+.DS_Store
+._*
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
