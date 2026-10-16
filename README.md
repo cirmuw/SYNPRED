@@ -1,5 +1,11 @@
 # SYNPRED: A Synergistic Approach to Multimodal Learning for Clinical Prediction
 
+**The pretrained chepoints and RNA data from GEO can be downloaded from:** `Huggingface` https://huggingface.co/ivanajanickova/synpred/tree/main
+
+The paper is now published as MICCAI26 proceedings: https://link.springer.com/chapter/10.1007/978-3-032-38172-9_56
+
+Author's contact info: `ivana.janickova@meduniwien.ac.at`
+
 Code for the multimodal VAE SYNPRED, applied to pathological complete response (pCR)
 prediction from breast DCE-MRI and gene expression (BreastDCEDL / I-SPY2).
 
